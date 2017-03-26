@@ -4,17 +4,18 @@ var Credentials = require('./Credentials.js');
 var Storage = require('./Storage.js');
 
 Authorizer = module.exports = Class.extend({
-
+	
 	initialize: function(properties) {
-
+		
 		Object.assign(this, properties);
 		this.storage = new Storage({
-			users: this.users
+			users: this.users,
+			dirname : this.dirname
 		});
 	},
-
+	
 	connect: function(callback) {
-
+		
 		this.bus = new Bus({
 			address: 'http://127.0.0.1:8080/',
 			secure: false
