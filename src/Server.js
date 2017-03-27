@@ -24,18 +24,20 @@ Server = module.exports = Class.extend({
    },
    
    start: function(callback) {
-
+      
       console.log('Starting server.');
       this.server = {};
       this.server.web = new WebServer({
          options: this.options || {}
       });
       this.server.web.start(function(express) {
-         express.use('/', Express.static(path.join(process.env.PWD, '../../examples')));
-         express.use('/', Express.serveIndex(path.join(process.env.PWD, '../../examples'), {
-            'icons': true
-         }));
-         express.use('/godsend-client.js', Express.static(path.join(process.env.PWD, '../../node_modules/godsend/client.js')));
+         if (process.env.PWD) {
+            express.use('/', Express.static(path.join(process.env.PWD, '../../examples')));
+            express.use('/', Express.serveIndex(path.join(process.env.PWD, '../../examples'), {
+               'icons': true
+            }));
+            express.use('/godsend-client.js', Express.static(path.join(process.env.PWD, '../../node_modules/godsend/client.js')));
+         }
          this.server.socket = new SocketServer({
             server: this.server.web.server,
             exchange: this.exchange || new exchange.Secure({
