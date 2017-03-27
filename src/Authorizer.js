@@ -9,8 +9,7 @@ Authorizer = module.exports = Class.extend({
 		
 		Object.assign(this, properties);
 		this.storage = new Storage({
-			users: this.users,
-			dirname : this.dirname
+			users: this.users
 		});
 	},
 	
