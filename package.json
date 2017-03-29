@@ -3,11 +3,11 @@
   "description": "Godsend: simple and elegant message streaming for microservices.",
   "author": "Philip Weaver",
   "contributors": [],
-  "version": "0.3.2",
-  "main": "./main.js",
+  "version": "0.3.3",
+  "main": "./src/main.js",
   "scripts": {},
   "dependencies": {
-    "godsend": "^0.3.2",
+    "godsend": "^0.3.3",
     "express": "^4.15.2",
     "js-logger": "1.3.0",
     "serve-index": "1.8.0",
@@ -29,10 +29,10 @@
   "license" : "MIT",
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/simplygreatwork/godsend.git"
+    "url" : "https://github.com/simplygreatwork/godsend-basics.git"
   },
   "bugs" : {
-    "url" : "https://github.com/simplygreatwork/godsend/issues",
+    "url" : "https://github.com/simplygreatwork/godsend-basics/issues",
     "email" : "simplygreatwork@gmail.com"
   }
 }
