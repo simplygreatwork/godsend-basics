@@ -8,10 +8,19 @@
 			"sendable" : [{
 				"topic" : "authentication",
 				"action" : "get-user"
+			}, {
+				"topic" : "presence",
+				"action" : "online"
+			}, {
+				"topic" : "presence",
+				"action" : "offline"
 			}],
 			"receivable" : [{
 				"topic" : "authentication",
 				"action" : "sign-in"
+			}, {
+				"topic" : "authentication",
+				"action" : "sign-out"
 			}]
 		}
 	},
