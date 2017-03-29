@@ -36,7 +36,7 @@ Server = module.exports = Class.extend({
             express.use('/', Express.serveIndex(path.join(process.env.PWD, '../../examples'), {
                'icons': true
             }));
-            express.use('/godsend-client.js', Express.static(path.join(process.env.PWD, '../../node_modules/godsend/client.js')));
+            express.use('/godsend-client.js', Express.static(path.join(process.env.PWD, '../../node_modules/godsend/dist/godsend-client.js')));
          }
          this.server.socket = new SocketServer({
             server: this.server.web.server,
