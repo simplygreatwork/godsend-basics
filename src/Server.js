@@ -1,4 +1,4 @@
-var fs = require('fs');
+
 var path = require('path');
 var Express = require('express');
 Express.serveIndex = require('serve-index');
@@ -14,21 +14,17 @@ Server = module.exports = Class.extend({
       Logger.setLevel(Logger.INFO);
       if (false) Logger.setLevel(Logger.OFF);
       Object.assign(this, properties);
-      if (this.secure) {
-         this.options = {
-            key: fs.readFileSync('/home/ubuntu/workspace/godsend-trust-output/server.key.private.pem'),
-            cert: fs.readFileSync('/home/ubuntu/workspace/godsend-trust-output/server.cert.pem'),
-            requestCert: true
-         };
-      }
    },
    
    start: function(callback) {
       
       console.log('Starting server.');
       this.server = {};
+      var options = {};
+      if (this.key) options.key = this.key;
+      if (this.cert) options.cert = this.cert;
       this.server.web = new WebServer({
-         options: this.options || {}
+         options: options
       });
       this.server.web.start(function(express) {
          if (process.env.PWD) {
