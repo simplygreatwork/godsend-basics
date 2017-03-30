@@ -14,6 +14,7 @@ Server = module.exports = Class.extend({
       Logger.setLevel(Logger.INFO);
       if (false) Logger.setLevel(Logger.OFF);
       Object.assign(this, properties);
+      this.address = this.address || 'http://127.0.0.1:8080/'
    },
    
    start: function(callback) {
@@ -36,6 +37,7 @@ Server = module.exports = Class.extend({
          }
          this.server.socket = new SocketServer({
             server: this.server.web.server,
+            address : this.address,
             exchange: this.exchange || new exchange.Secure({
                users: require('./users.json')
             })

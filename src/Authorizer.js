@@ -8,6 +8,7 @@ Authorizer = module.exports = Class.extend({
 	initialize: function(properties) {
 		
 		Object.assign(this, properties);
+		this.address = this.address || 'http://127.0.0.1:8080/';
 		this.storage = new Storage({
 			users: this.users
 		});
@@ -16,7 +17,7 @@ Authorizer = module.exports = Class.extend({
 	connect: function(callback) {
 		
 		this.bus = new Bus({
-			address: 'http://127.0.0.1:8080/',
+			address: this.address,
 			secure: false
 		});
 		this.bus.connect({
@@ -24,17 +25,22 @@ Authorizer = module.exports = Class.extend({
 				username: Credentials.get('authenticator').username,
 				passphrase: Credentials.get('authenticator').passphrase,
 			},
-			responded: function(result) {
-				this.connection = result.connection;
-				this.process();
+			initialized : function(connection) {
+				this.process(connection);
+			}.bind(this),
+			connected: function(connection) {
+				this.connection = connection;
 				callback();
+			}.bind(this),
+			errored : function(errors) {
+				console.error('Connection errors: ' + errors);
 			}.bind(this)
 		});
 	},
-
-	process: function() {
-
-		this.connection.process({
+	
+	process: function(connection) {
+		
+		connection.process({
 			id: 'authentication-get-user',
 			on: function(request) {
 				request.accept({
@@ -54,7 +60,7 @@ Authorizer = module.exports = Class.extend({
 			}.bind(this)
 		});
 
-		this.connection.process({
+		connection.process({
 			id: 'authentication-put-user',
 			on: function(request) {
 				request.accept({
