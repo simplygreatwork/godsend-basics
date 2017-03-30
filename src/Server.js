@@ -16,9 +16,9 @@ Server = module.exports = Class.extend({
       Object.assign(this, properties);
       if (this.secure) {
          this.options = {
-            key: fs.readFileSync('/home/ubuntu/workspace/trust/server.key.private.pem'),
-            cert: fs.readFileSync('/home/ubuntu/workspace/trust/server.cert.pem'),
-            requestCert: false
+            key: fs.readFileSync('/home/ubuntu/workspace/godsend-trust-output/server.key.private.pem'),
+            cert: fs.readFileSync('/home/ubuntu/workspace/godsend-trust-output/server.cert.pem'),
+            requestCert: true
          };
       }
    },
