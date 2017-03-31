@@ -1,7 +1,11 @@
 Utility = module.exports = {
 	
-	address: function() {
+	address: function(options) {
 		
-		return 'http://127.0.0.1:' + (process.env.PORT || 8080) + '/';
+		if (options && options.secure) {
+			return 'https://127.0.0.1:' + (process.env.PORT || 8080) + '/';
+		} else {
+			return 'http://127.0.0.1:' + (process.env.PORT || 8080) + '/';
+		}
 	}
 };
