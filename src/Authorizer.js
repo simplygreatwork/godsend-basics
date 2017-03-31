@@ -2,13 +2,14 @@ var Class = require('godsend').Class;
 var Bus = require('godsend').Bus;
 var Credentials = require('./Credentials.js');
 var Storage = require('./Storage.js');
+var Utility = require('./Utility.js');
 
 Authorizer = module.exports = Class.extend({
 	
 	initialize: function(properties) {
 		
 		Object.assign(this, properties);
-		this.address = this.address || 'http://127.0.0.1:8080/';
+      this.address = this.address || Utility.address();
 		this.storage = new Storage({
 			users: this.users
 		});
@@ -16,11 +17,10 @@ Authorizer = module.exports = Class.extend({
 	
 	connect: function(callback) {
 		
-		this.bus = new Bus({
+		new Bus({
 			address: this.address,
 			secure: false
-		});
-		this.bus.connect({
+		}).connect({
 			credentials: {
 				username: Credentials.get('authenticator').username,
 				passphrase: Credentials.get('authenticator').passphrase,

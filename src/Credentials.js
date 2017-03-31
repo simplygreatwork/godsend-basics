@@ -1,5 +1,5 @@
 Credentials = module.exports = {
-
+	
 	get: function(username) {
 
 		return {
