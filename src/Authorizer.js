@@ -9,7 +9,7 @@ Authorizer = module.exports = Class.extend({
 	initialize: function(properties) {
 		
 		Object.assign(this, properties);
-      this.address = this.address || Utility.address();
+      this.address = this.address || Utility.local();
 		this.storage = new Storage({
 			users: this.users
 		});
