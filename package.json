@@ -3,11 +3,11 @@
   "description": "Godsend: simple and elegant message streaming for microservices.",
   "author": "Philip Weaver",
   "contributors": [],
-  "version": "0.3.12",
+  "version": "0.3.13",
   "main": "./src/main.js",
   "scripts": {},
   "dependencies": {
-    "godsend": "0.3.12",
+    "godsend": "0.3.13",
     "express": "4.15.2",
     "js-logger": "1.3.0",
     "serve-index": "1.8.0",
