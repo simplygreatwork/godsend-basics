@@ -11,7 +11,8 @@ Server = module.exports = Class.extend({
    
    initialize: function(properties) {
       
-      Logger.setLevel(Logger.INFO);
+		Logger.useDefaults();
+		Logger.setLevel(Logger.INFO);
       if (false) Logger.setLevel(Logger.OFF);
       Object.assign(this, properties);
       this.address = this.address || 'http://127.0.0.1:' + (process.env.PORT || 8080) + '/'
