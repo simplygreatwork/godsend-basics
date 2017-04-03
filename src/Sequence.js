@@ -6,17 +6,24 @@ Sequence = module.exports = {
 		
 		var next = null;
 		var args = Array.prototype.slice.call(arguments);
-		args.unshift(function() {
+		var wrapped = [];
+		args.forEach(function(each) {
+			wrapped.push(function(e) {
+				if (e) throw e;						// Step.js does not throw exceptions by default: so wrapping to throw
+				each();
+			})
+		});
+		wrapped.unshift(function() {
 			next = function() {
 				setTimeout(function() {
 					this();
-				}.bind(this), 20);
+				}.bind(this), 1);
 			}.bind(this);
 			next();
 		});
 		
-		Step.apply(this, args);
-
+		Step.apply(this, wrapped);
+		
 		return {
 			next: next
 		};
