@@ -3,18 +3,15 @@ var path = require('path');
 var Express = require('express');
 Express.serveIndex = require('serve-index');
 var Logger = require('js-logger');
-var Class = require('godsend').WebServer;
-var SocketServer = require('godsend').SocketServer;
-var exchange = require('godsend').Exchange;
+var godsend = require('godsend');
+var Class = godsend.Class;
 
 Server = module.exports = Class.extend({
    
    initialize: function(properties) {
       
-		Logger.useDefaults();
-		Logger.setLevel(Logger.INFO);
-      if (false) Logger.setLevel(Logger.OFF);
       Object.assign(this, properties);
+      godsend.logging = new godsend.Logging();
       this.address = this.address || 'http://127.0.0.1:' + (process.env.PORT || 8080) + '/'
    },
    
@@ -25,7 +22,7 @@ Server = module.exports = Class.extend({
       var options = {};
       if (this.key) options.key = this.key;
       if (this.cert) options.cert = this.cert;
-      this.server.web = new WebServer({
+      this.server.web = new godsend.WebServer({
          options: options
       });
       this.server.web.start(function(express) {
@@ -37,10 +34,10 @@ Server = module.exports = Class.extend({
             express.use('/godsend-client.js', Express.static(path.join(process.env.PWD, '../../node_modules/godsend/dist/godsend-client.js')));
             express.use('/godsend-basics-client.js', Express.static(path.join(process.env.PWD, '../../node_modules/godsend-basics/dist/godsend-basics-client.js')));
          }
-         this.server.socket = new SocketServer({
+         this.server.socket = new godsend.SocketServer({
             server: this.server.web.server,
             address : this.address,
-            exchange: this.exchange || new exchange.Secure({
+            exchange: this.exchange || new godsend.Exchange.Secure({
                users: require('./users.json')
             })
          });
