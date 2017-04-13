@@ -19,7 +19,7 @@ Storage = module.exports = Class.extend({
 			}.bind(this));
 		}.bind(this));
 	},
-
+	
 	put: function(properties) {
 		
 		this.data.users[properties.key] = properties.value;
