@@ -1,3 +1,4 @@
+
 var fs = require('fs');
 
 Storage = module.exports = Class.extend({
