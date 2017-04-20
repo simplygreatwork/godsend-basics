@@ -1,5 +1,6 @@
-var Class = require('godsend').Class;
-var Bus = require('godsend').Bus;
+
+var godsend = require('godsend');
+var Class = godsend.Class;
 var Credentials = require('./Credentials.js');
 var Storage = require('./Storage.js');
 var Utility = require('./Utility.js');
@@ -17,28 +18,13 @@ Authorizer = module.exports = Class.extend({
 	
 	connect: function(callback) {
 		
-		new Bus({
+		var connection = godsend.connect({
 			address: this.address,
-			secure: false
-		}).connect({
 			credentials: {
 				username: Credentials.get('authenticator').username,
 				passphrase: Credentials.get('authenticator').passphrase,
-			},
-			initialized : function(connection) {
-				this.process(connection);
-			}.bind(this),
-			connected: function(connection) {
-				this.connection = connection;
-				callback();
-			}.bind(this),
-			errored : function(errors) {
-				console.error('Connection errors: ' + errors);
-			}.bind(this)
+			}
 		});
-	},
-	
-	process: function(connection) {
 		
 		connection.process({
 			id: 'authentication-get-user',
@@ -101,5 +87,7 @@ Authorizer = module.exports = Class.extend({
 				});
 			}.bind(this)
 		});
+		
+		callback();
 	}
 });
