@@ -34,6 +34,11 @@ Server = module.exports = Class.extend({
             express.use('/godsend-client.js', Express.static(path.join(process.env.PWD, '../../node_modules/godsend/dist/godsend-client.js')));
             express.use('/godsend-basics-client.js', Express.static(path.join(process.env.PWD, '../../node_modules/godsend-basics/dist/godsend-basics-client.js')));
          }
+         if (this.learn) {
+            this.exchange = new godsend.Exchange.Learning({
+               users : require(process.cwd() + '/users.json')
+            })
+         }
          this.server.socket = new godsend.SocketServer({
             server: this.server.web.server,
             address : this.address,
