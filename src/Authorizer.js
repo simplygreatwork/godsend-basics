@@ -26,7 +26,7 @@ Authorizer = module.exports = Class.extend({
 			}
 		});
 		
-		connection.process({
+		connection.mount({
 			id: 'authentication-get-user',
 			on: function(request) {
 				request.accept({
@@ -46,7 +46,7 @@ Authorizer = module.exports = Class.extend({
 			}.bind(this)
 		});
 
-		connection.process({
+		connection.mount({
 			id: 'authentication-put-user',
 			on: function(request) {
 				request.accept({
