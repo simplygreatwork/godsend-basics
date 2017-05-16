@@ -36,8 +36,7 @@ Server = module.exports = Class.extend({
          }
          if (this.learn) {
             this.exchange = new godsend.Exchange.Learning({
-               users : require(process.cwd() + '/users.json'),
-               learnables : ['topic', 'action', 'collection']
+               users : require(process.cwd() + '/users.json')
             })
          }
          this.server.socket = new godsend.SocketServer({
